@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  padding: 1rem;
+}
+
+.active {
+  background: var(--mat-sys-primary-container);
+}
