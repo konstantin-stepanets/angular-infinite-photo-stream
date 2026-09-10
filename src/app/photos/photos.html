@@ -1,1 +1,9 @@
-<p>photos works!</p>
+<section class="photos">
+  <app-photo-grid [photos]="photos()" />
+
+  @if (loading()) {
+    <div class="photos-loader">
+      <mat-spinner diameter="40" />
+    </div>
+  }
+</section>

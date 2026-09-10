@@ -43,7 +43,7 @@ describe('PhotoService', () => {
     expect(new Set(ids).size).toBe(10);
   });
 
-  it('should generate stable picsum URLs with seed', async () => {
+  it('should generate different picsum image URLs', async () => {
     let photos: Photo[] = [];
 
     service.loadPhotos(3).subscribe((result) => {
@@ -52,7 +52,7 @@ describe('PhotoService', () => {
     await vi.advanceTimersByTimeAsync(300);
 
     photos.forEach((photo) => {
-      expect(photo.url).toBe(`https://picsum.photos/seed/${photo.id}/200/300`);
+      expect(photo.url).toMatch(/^https:\/\/picsum\.photos\/id\/\d+\/200\/300$/);
     });
   });
 

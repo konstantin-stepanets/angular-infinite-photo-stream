@@ -14,11 +14,12 @@ export class PhotoService {
   }
 
   private createPhoto(): Photo {
-    const id = crypto.randomUUID();
+    // Different /id/N → different image. Same /200/300 for all cards → one cached picture.
+    const imageId = Math.floor(Math.random() * 1000);
 
     return {
-      id,
-      url: `https://picsum.photos/seed/${id}/200/300`,
+      id: crypto.randomUUID(),
+      url: `https://picsum.photos/id/${imageId}/200/300`,
     };
   }
 
