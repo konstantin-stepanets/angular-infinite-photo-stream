@@ -1,0 +1,10 @@
+<button type="button" class="photo-card" (click)="onPhotoClick()">
+  <img
+    class="photo-image"
+    [ngSrc]="photo().url"
+    width="200"
+    height="300"
+    [alt]="'Photo ' + photo().id"
+    [priority]="priority()"
+  />
+</button>
