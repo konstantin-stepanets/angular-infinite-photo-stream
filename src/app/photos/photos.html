@@ -1,5 +1,5 @@
 <section class="photos">
-  <app-photo-grid [photos]="photos()" />
+  <app-photo-grid [photos]="photos()" (photoClick)="addToFavorites($event)" />
 
   @if (loading()) {
     <div class="photos-loader">

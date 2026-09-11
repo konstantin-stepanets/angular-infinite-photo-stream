@@ -2,6 +2,7 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { FavoritesService } from '../favorites/services/favorites.service';
 import { Photo } from '../shared/models/photo.model';
 import { PhotoGrid } from '../shared/photo-grid/photo-grid';
 import { PhotoService } from './services/photo.service';
@@ -14,6 +15,7 @@ import { PhotoService } from './services/photo.service';
 })
 export class Photos implements OnInit {
   private readonly photoService = inject(PhotoService);
+  private readonly favoritesService = inject(FavoritesService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly photos = signal<Photo[]>([]);
@@ -41,5 +43,9 @@ export class Photos implements OnInit {
       .subscribe((batch) => {
         this.photos.update((current) => [...current, ...batch]);
       });
+  }
+
+  addToFavorites(photo: Photo): void {
+    this.favoritesService.add(photo);
   }
 }
