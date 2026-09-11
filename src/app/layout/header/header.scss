@@ -1,8 +1,17 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+}
+
 .header {
   display: flex;
   justify-content: center;
   gap: 4rem;
   padding: 1rem;
+  background: white;
 }
 
 .active {
