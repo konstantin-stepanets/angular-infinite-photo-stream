@@ -1,0 +1,18 @@
+<section class="photo-detail">
+  @if (photo(); as current) {
+    <div class="photo-detail-frame">
+      <img
+        class="photo-detail-image"
+        [ngSrc]="current.url"
+        fill
+        priority
+        [alt]="'Photo ' + current.id"
+      />
+    </div>
+    <button matButton="filled" type="button" (click)="removeFromFavorites()">
+      Remove from favorites
+    </button>
+  } @else {
+    <p class="photo-detail-empty">Photo not found</p>
+  }
+</section>
