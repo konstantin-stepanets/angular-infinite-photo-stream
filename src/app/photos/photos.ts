@@ -5,11 +5,12 @@ import { finalize } from 'rxjs';
 import { FavoritesService } from '../favorites/services/favorites.service';
 import { Photo } from '../shared/models/photo.model';
 import { PhotoGrid } from '../shared/photo-grid/photo-grid';
+import { InfiniteScroll } from './directives/infinite-scroll';
 import { PhotoService } from './services/photo.service';
 
 @Component({
   selector: 'app-photos',
-  imports: [PhotoGrid, MatProgressSpinnerModule],
+  imports: [PhotoGrid, MatProgressSpinnerModule, InfiniteScroll],
   templateUrl: './photos.html',
   styleUrl: './photos.scss',
 })
@@ -21,7 +22,7 @@ export class Photos implements OnInit {
   readonly photos = signal<Photo[]>([]);
   readonly loading = signal(false);
 
-  private readonly pageSize = 12;
+  private readonly pageSize = 6;
 
   ngOnInit(): void {
     this.loadPhotos();

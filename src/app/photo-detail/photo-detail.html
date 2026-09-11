@@ -1,13 +1,14 @@
 <section class="photo-detail">
   @if (photo(); as current) {
-    <img
-      class="photo-detail-image"
-      [ngSrc]="current.url"
-      width="200"
-      height="300"
-      priority
-      [alt]="'Photo ' + current.id"
-    />
+    <div class="photo-detail-frame">
+      <img
+        class="photo-detail-image"
+        [ngSrc]="current.url"
+        fill
+        priority
+        [alt]="'Photo ' + current.id"
+      />
+    </div>
     <button matButton="filled" type="button" (click)="removeFromFavorites()">
       Remove from favorites
     </button>

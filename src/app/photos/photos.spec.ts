@@ -17,6 +17,19 @@ describe('Photos', () => {
   beforeEach(async () => {
     add.mockReset();
 
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        observe = vi.fn();
+        disconnect = vi.fn();
+        unobserve = vi.fn();
+        takeRecords = vi.fn(() => []);
+        root = null;
+        rootMargin = '';
+        thresholds = [];
+      },
+    );
+
     await TestBed.configureTestingModule({
       imports: [Photos],
       providers: [
@@ -38,6 +51,10 @@ describe('Photos', () => {
 
     fixture = TestBed.createComponent(Photos);
     await fixture.whenStable();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {

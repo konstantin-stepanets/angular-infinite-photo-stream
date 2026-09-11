@@ -1,9 +1,14 @@
 <section class="photos">
   <app-photo-grid [photos]="photos()" (photoClick)="addToFavorites($event)" />
 
-  @if (loading()) {
-    <div class="photos-loader">
+  <div
+    class="photos-loader"
+    appInfiniteScroll
+    [scrollDisabled]="loading()"
+    (scrolled)="loadPhotos()"
+  >
+    @if (loading()) {
       <mat-spinner diameter="40" />
-    </div>
-  }
+    }
+  </div>
 </section>
