@@ -1,5 +1,7 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { FavoritesService } from '../favorites/services/favorites.service';
 import { Photo } from '../shared/models/photo.model';
 import { Photos } from './photos';
 import { PhotoService } from './services/photo.service';
@@ -10,8 +12,11 @@ describe('Photos', () => {
     { id: '1', url: 'https://picsum.photos/id/1/200/300' },
     { id: '2', url: 'https://picsum.photos/id/2/200/300' },
   ];
+  const add = vi.fn();
 
   beforeEach(async () => {
+    add.mockReset();
+
     await TestBed.configureTestingModule({
       imports: [Photos],
       providers: [
@@ -19,6 +24,13 @@ describe('Photos', () => {
           provide: PhotoService,
           useValue: {
             loadPhotos: () => of(mockPhotos),
+          },
+        },
+        {
+          provide: FavoritesService,
+          useValue: {
+            favorites: signal([]).asReadonly(),
+            add,
           },
         },
       ],
@@ -39,5 +51,17 @@ describe('Photos', () => {
     expect(fixture.componentInstance.photos().length).toBe(2);
     const cards = (fixture.nativeElement as HTMLElement).querySelectorAll('app-photo-card');
     expect(cards.length).toBe(2);
+  });
+
+  it('should add a photo to favorites on card click', async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const button = (fixture.nativeElement as HTMLElement).querySelector(
+      'button.photo-card',
+    ) as HTMLButtonElement;
+    button.click();
+
+    expect(add).toHaveBeenCalledWith(mockPhotos[0]);
   });
 });

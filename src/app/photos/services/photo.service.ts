@@ -14,7 +14,6 @@ export class PhotoService {
   }
 
   private createPhoto(): Photo {
-    // Different /id/N → different image. Same /200/300 for all cards → one cached picture.
     const imageId = Math.floor(Math.random() * 1000);
 
     return {
