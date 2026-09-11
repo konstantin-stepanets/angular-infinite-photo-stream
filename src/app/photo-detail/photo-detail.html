@@ -1,1 +1,17 @@
-<p>photo-detail works!</p>
+<section class="photo-detail">
+  @if (photo(); as current) {
+    <img
+      class="photo-detail-image"
+      [ngSrc]="current.url"
+      width="200"
+      height="300"
+      priority
+      [alt]="'Photo ' + current.id"
+    />
+    <button matButton="filled" type="button" (click)="removeFromFavorites()">
+      Remove from favorites
+    </button>
+  } @else {
+    <p class="photo-detail-empty">Photo not found</p>
+  }
+</section>

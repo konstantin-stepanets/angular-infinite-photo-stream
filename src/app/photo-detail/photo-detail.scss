@@ -1,0 +1,17 @@
+.photo-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.photo-detail-image {
+  width: min(100%, 480px);
+  height: auto;
+  object-fit: contain;
+}
+
+.photo-detail-empty {
+  margin: 2rem 0;
+}

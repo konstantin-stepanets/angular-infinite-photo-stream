@@ -1,9 +1,25 @@
-import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
+import { FavoritesService } from '../favorites/services/favorites.service';
 
 @Component({
-  imports: [],
   selector: 'app-photo-detail',
-  styleUrl: './photo-detail.scss',
+  imports: [NgOptimizedImage, MatButtonModule],
   templateUrl: './photo-detail.html',
+  styleUrl: './photo-detail.scss',
 })
-export class PhotoDetail {}
+export class PhotoDetail {
+  private readonly favoritesService = inject(FavoritesService);
+  private readonly router = inject(Router);
+
+  readonly id = input.required<string>();
+
+  readonly photo = computed(() => this.favoritesService.getById(this.id()));
+
+  removeFromFavorites(): void {
+    this.favoritesService.remove(this.id());
+    void this.router.navigate(['/favorites']);
+  }
+}
